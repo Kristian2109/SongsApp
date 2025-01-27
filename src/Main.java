@@ -1,9 +1,15 @@
-import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.Server;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging.LocalLogger;
+import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SocketAsynchronousServer;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.SimpleClientInputHandler;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.SingleLineStringCommandParser;
 
 public class Main {
     public static void main(String[] args) {
-        Server server = new Server(3000, new SimpleClientInputHandler());
+        CommandParser commandParser = new SingleLineStringCommandParser();
+        SocketAsynchronousServer server = new SocketAsynchronousServer(3000,
+            new SimpleClientInputHandler(commandParser),
+            new LocalLogger());
         server.start();
     }
 }

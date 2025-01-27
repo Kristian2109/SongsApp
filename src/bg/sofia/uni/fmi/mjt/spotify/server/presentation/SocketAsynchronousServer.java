@@ -1,6 +1,7 @@
-package bg.sofia.uni.fmi.mjt.spotify.server.infrastructure;
+package bg.sofia.uni.fmi.mjt.spotify.server.presentation;
 
-import bg.sofia.uni.fmi.mjt.spotify.server.business.ClientInputHandler;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.ClientInputHandler;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -13,20 +14,21 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-public class Server {
+public class SocketAsynchronousServer {
     private static final int BUFFER_SIZE = 1024;
     private static final String HOST = "localhost";
-
     private final int port;
-    private final ClientInputHandler commandHandler;
     private boolean isServerWorking;
-
     private ByteBuffer buffer;
     private Selector selector;
 
-    public Server(int port, ClientInputHandler commandHandler) {
+    private final ClientInputHandler commandHandler;
+    private final Logger logger;
+
+    public SocketAsynchronousServer(int port, ClientInputHandler commandHandler, Logger logger) {
         this.port = port;
         this.commandHandler = commandHandler;
+        this.logger = logger;
     }
 
     public void start() {

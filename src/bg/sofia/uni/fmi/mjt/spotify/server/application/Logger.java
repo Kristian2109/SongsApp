@@ -1,4 +1,4 @@
-package bg.sofia.uni.fmi.mjt.spotify.server.business;
+package bg.sofia.uni.fmi.mjt.spotify.server.application;
 
 public interface Logger {
     void logInfo();

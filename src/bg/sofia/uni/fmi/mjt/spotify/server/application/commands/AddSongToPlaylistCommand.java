@@ -1,9 +1,9 @@
-package bg.sofia.uni.fmi.mjt.spotify.server.business.commands;
+package bg.sofia.uni.fmi.mjt.spotify.server.application.commands;
 
-import bg.sofia.uni.fmi.mjt.spotify.server.business.repositories.PlaylistRepository;
-import bg.sofia.uni.fmi.mjt.spotify.server.business.repositories.SongsRepository;
-import bg.sofia.uni.fmi.mjt.spotify.server.models.Playlist;
-import bg.sofia.uni.fmi.mjt.spotify.server.models.Song;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Playlist;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Song;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,6 @@ import java.util.Map;
 public class AddSongToPlaylistCommand implements Command {
     private final String songName;
     private final String playlistName;
-
     private final SongsRepository songsRepository;
     private final PlaylistRepository playlistRepository;
 

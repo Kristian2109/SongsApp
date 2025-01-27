@@ -1,4 +1,4 @@
-package bg.sofia.uni.fmi.mjt.spotify.server.models;
+package bg.sofia.uni.fmi.mjt.spotify.server.domain.models;
 
 import java.util.Set;
 

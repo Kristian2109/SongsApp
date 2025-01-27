@@ -1,6 +1,6 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.infrastructure;
 
-import bg.sofia.uni.fmi.mjt.spotify.server.business.commands.Command;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.Command;
 
 public class SingleLineStringCommandParser implements CommandParser {
     @Override
