@@ -25,7 +25,7 @@ public class AddSongToPlaylistCommand implements Command {
     public Map<String, Object> execute() {
         Song foundSong = this.songsRepository.getByName(songName).orElseThrow();
         Playlist playlist = this.playlistRepository.getByName(playlistName).orElseThrow();
-        playlist.songs().add(foundSong);
+        playlist.getSongs().add(foundSong);
         playlistRepository.update(playlist);
         return new HashMap<>();
     }
