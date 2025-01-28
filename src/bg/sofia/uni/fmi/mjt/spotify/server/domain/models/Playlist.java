@@ -1,6 +1,16 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.domain.models;
 
-import java.util.Set;
+public class Playlist extends Identifiable {
+    private String name;
+    public Playlist(String id, String name) {
+        super(id);
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
 
-public record Playlist(String name, Set<Song> songs) {
+    public void setName(String name) {
+        this.name = name;
+    }
 }
