@@ -6,7 +6,8 @@ import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.SingleLineStringComman
 
 public class Main {
     public static void main(String[] args) {
-        CommandParser commandParser = new SingleLineStringCommandParser();
+        CommandParser commandParser = new SingleLineStringCommandParser(userRepository, songsRepository,
+            playlistRepository);
         SocketAsynchronousServer server = new SocketAsynchronousServer(3000,
             new SimpleClientInputHandler(commandParser),
             new LocalLogger());
