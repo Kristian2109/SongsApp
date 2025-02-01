@@ -44,7 +44,7 @@ public class SingleLineStringCommandParser implements CommandParser {
             case "login" -> new LoginCommand();
             case "create-playlist" -> new CreatePlaylistCommand(playlistRepository, tokens[1]);
             case "play" -> new PlaySongCommand();
-            case "show-playlist" -> new GetPlaylistCommand();
+            case "show-playlist" -> new GetPlaylistCommand(playlistRepository, tokens[1]);
             default -> throw new IllegalArgumentException("Invalid command " + tokens[0]);
         };
     }
