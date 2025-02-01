@@ -1,7 +1,9 @@
-package bg.sofia.uni.fmi.mjt.spotify.server.infrastructure;
+package bg.sofia.uni.fmi.mjt.spotify.server.presentation;
 
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.Command;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.ClientInputHandler;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
 import com.google.gson.Gson;
 
 import java.util.HashMap;
@@ -25,8 +27,10 @@ public class SimpleClientInputHandler implements ClientInputHandler {
             Object result = command.execute();
             jsonResult.put("result", result);
             jsonResult.put("success", true);
+            logger.logInfo("Success");
             return gson.toJson(jsonResult);
         } catch (RuntimeException e) {
+            logger.logError("Error");
             jsonResult.put("error", e.getMessage());
             return gson.toJson(jsonResult);
         }

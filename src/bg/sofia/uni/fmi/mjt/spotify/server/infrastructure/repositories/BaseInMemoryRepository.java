@@ -4,14 +4,15 @@ import bg.sofia.uni.fmi.mjt.spotify.server.domain.exception.EntityNotFoundExcept
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Identifiable;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.BaseRepository;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BaseInMemoryRepository<T extends Identifiable> implements BaseRepository<T> {
-    private final Map<String, T> entities = new HashMap<>();
-    private final AtomicInteger lastId = new AtomicInteger();
-    private final Class<T> tClass;
+    protected final Map<String, T> entities = new ConcurrentHashMap<>();
+    protected final AtomicInteger lastId = new AtomicInteger();
+    protected final Class<T> tClass;
 
     public BaseInMemoryRepository(Class<T> tClass) {
         this.tClass = tClass;
@@ -39,5 +40,10 @@ public class BaseInMemoryRepository<T extends Identifiable> implements BaseRepos
         }
         entities.put(toUpdate.getId(), toUpdate);
         return toUpdate;
+    }
+
+    @Override
+    public Set<T> getAll() {
+        return Set.copyOf(entities.values());
     }
 }
