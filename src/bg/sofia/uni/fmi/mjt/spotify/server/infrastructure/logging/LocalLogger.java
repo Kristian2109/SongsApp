@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LocalLogger implements Logger {
-    private Gson gson;
+    private final Gson gson = new Gson();
     private void log(String message) {
         Map<String, Object> logResult = new HashMap<>();
         logResult.put("message", message);
-        logResult.put("time", LocalDateTime.now());
+        logResult.put("time", LocalDateTime.now().toString());
         System.out.println(gson.toJson(logResult));
     }
 
