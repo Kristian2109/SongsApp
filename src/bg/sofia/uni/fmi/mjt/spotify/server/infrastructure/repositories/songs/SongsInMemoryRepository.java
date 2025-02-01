@@ -13,6 +13,8 @@ public class SongsInMemoryRepository extends BaseInMemoryRepository<Song> implem
 
     @Override
     public Optional<Song> getByName(String name) {
-        return Optional.empty();
+        return entities.values().stream()
+            .filter(song -> song.getName().equalsIgnoreCase(name))
+            .findFirst();
     }
 }

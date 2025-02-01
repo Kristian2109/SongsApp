@@ -10,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class BaseInMemoryRepository<T extends Identifiable> implements BaseRepository<T> {
+    protected final Class<T> tClass;
     protected final Map<String, T> entities = new ConcurrentHashMap<>();
     protected final AtomicInteger lastId = new AtomicInteger();
-    protected final Class<T> tClass;
 
     public BaseInMemoryRepository(Class<T> tClass) {
         this.tClass = tClass;

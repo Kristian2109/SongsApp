@@ -4,7 +4,7 @@ import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Playlist;
 
 import java.util.Optional;
 
-public interface PlaylistRepository {
+public interface PlaylistRepository extends BaseRepository<Playlist> {
     void update(Playlist playlist);
     Optional<Playlist> getByName(String name);
 }

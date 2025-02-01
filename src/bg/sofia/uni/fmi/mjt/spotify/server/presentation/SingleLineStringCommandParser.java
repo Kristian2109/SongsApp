@@ -38,11 +38,11 @@ public class SingleLineStringCommandParser implements CommandParser {
 
         return switch (tokens[0]) {
             case "add-song-to" ->
-                new AddSongToPlaylistCommand(songsRepository, playlistRepository, tokens[1], tokens[2]);
+                new AddSongToPlaylistCommand(songsRepository, playlistRepository, tokens[2], tokens[1]);
             case "search" -> buildSongsCommand(tokens);
             case "register" -> new RegisterCommand();
             case "login" -> new LoginCommand();
-            case "create-playlist" -> new CreatePlaylistCommand();
+            case "create-playlist" -> new CreatePlaylistCommand(playlistRepository, tokens[1]);
             case "play" -> new PlaySongCommand();
             case "show-playlist" -> new GetPlaylistCommand();
             default -> throw new IllegalArgumentException("Invalid command " + tokens[0]);
