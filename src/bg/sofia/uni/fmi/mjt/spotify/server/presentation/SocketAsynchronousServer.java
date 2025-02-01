@@ -54,7 +54,7 @@ public class SocketAsynchronousServer {
                         keyIterator.remove();
                     }
                 } catch (IOException e) {
-                    System.out.println("Error occurred while processing client request: " + e.getMessage());
+                    logger.logError("Error occurred while processing client request: " + e.getMessage());
                 }
             }
         } catch (IOException e) {
@@ -82,17 +82,17 @@ public class SocketAsynchronousServer {
     }
 
     private void handleChannel(SelectionKey key) throws IOException {
+        this.logger.logInfo("Request Start");
         SocketChannel clientChannel = (SocketChannel) key.channel();
         String clientInput = getClientInput(clientChannel);
         if (clientInput == null) {
             clientChannel.close();
             return;
         }
-        System.out.println(clientInput);
-
         String result = this.commandHandler.handle(clientInput);
 
         writeClientOutput(clientChannel, result + '\n');
+        logger.logInfo("Request End");
     }
 
     private String getClientInput(SocketChannel clientChannel) throws IOException {

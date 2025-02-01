@@ -1,3 +1,4 @@
+import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.User;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
@@ -20,11 +21,12 @@ public class Main {
         CommandParser commandParser = new SingleLineStringCommandParser(
             userRepository, songsRepository, playlistRepository
         );
+        Logger logger = new LocalLogger();
 
         SocketAsynchronousServer server = new SocketAsynchronousServer(
             3000,
-            new SimpleClientInputHandler(commandParser),
-            new LocalLogger()
+            new SimpleClientInputHandler(commandParser, logger),
+            logger
         );
         server.start();
     }

@@ -1,9 +1,9 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.application;
 
 public interface Logger {
-    void logInfo();
+    void logInfo(String message);
 
-    void logError();
+    void logError(String message);
 
-    void logWarning();
+    void logWarning(String message);
 }

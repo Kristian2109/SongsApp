@@ -1,5 +1,6 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.infrastructure;
 
+import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.Command;
 import com.google.gson.Gson;
 
@@ -8,9 +9,11 @@ import java.util.Map;
 
 public class SimpleClientInputHandler implements ClientInputHandler {
     private final CommandParser commandParser;
+    private final Logger logger;
 
-    public SimpleClientInputHandler(CommandParser commandParser) {
+    public SimpleClientInputHandler(CommandParser commandParser, Logger logger) {
         this.commandParser = commandParser;
+        this.logger = logger;
     }
 
     @Override
