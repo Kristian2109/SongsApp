@@ -26,6 +26,10 @@ public class Main {
             new SimpleClientInputHandler(commandParser, logger),
             logger
         );
+//
+//        StreamingServer.initialize(logger, Executors.newCachedThreadPool(), songsRepository, 8000);
+//        StreamingServer streamingServer = StreamingServer.getInstance();
+//        streamingServer.start();
 
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
@@ -34,6 +38,7 @@ public class Main {
                 String command = scanner.nextLine().trim();
                 if (command.equals("stop")) {
                     server.stop();
+//                    streamingServer.stop();
                     isRunning = false;
                 }
             }
