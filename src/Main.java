@@ -1,11 +1,9 @@
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
-import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.User;
-import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging.LocalLogger;
-import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.playlist.PlaylistInMemoryRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.playlist.LocalFileSystemPlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.songs.LocalFileSystemSongsRepository;
-import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.user.UserInMemoryRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.user.LocalFileSystemUserRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SimpleClientInputHandler;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SingleLineStringCommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SocketAsynchronousServer;
@@ -14,9 +12,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        UserInMemoryRepository userRepository = new UserInMemoryRepository(User.class);
+        LocalFileSystemUserRepository userRepository = new LocalFileSystemUserRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\users.json");
         LocalFileSystemSongsRepository songsRepository = new LocalFileSystemSongsRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\songs.json");
-        PlaylistRepository playlistRepository = new PlaylistInMemoryRepository();
+        LocalFileSystemPlaylistRepository playlistRepository = new LocalFileSystemPlaylistRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\playlists.json");
 
         CommandParser commandParser = new SingleLineStringCommandParser(
             userRepository, songsRepository, playlistRepository
@@ -43,5 +41,7 @@ public class Main {
 
         server.start();
         songsRepository.saveEntitiesToFileSystem();
+        userRepository.saveEntitiesToFileSystem();
+        playlistRepository.saveEntitiesToFileSystem();
     }
 }

@@ -12,11 +12,6 @@ public class PlaylistInMemoryRepository extends BaseInMemoryRepository<Playlist>
     }
 
     @Override
-    public void update(Playlist playlist) {
-
-    }
-
-    @Override
     public Optional<Playlist> getByName(String name) {
         return entities.values().stream()
             .filter(playlist -> playlist.getName().equalsIgnoreCase(name))
