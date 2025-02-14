@@ -15,11 +15,11 @@ public class Main {
         LocalFileSystemUserRepository userRepository = new LocalFileSystemUserRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\users.json");
         LocalFileSystemSongsRepository songsRepository = new LocalFileSystemSongsRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\songs.json");
         LocalFileSystemPlaylistRepository playlistRepository = new LocalFileSystemPlaylistRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\playlists.json");
+        Logger logger = new LocalLogger();
 
         CommandParser commandParser = new SingleLineStringCommandParser(
-            userRepository, songsRepository, playlistRepository
+            userRepository, songsRepository, playlistRepository, logger
         );
-        Logger logger = new LocalLogger();
 
         SocketAsynchronousServer server = new SocketAsynchronousServer(
             3000,

@@ -21,7 +21,6 @@ public class SocketAsynchronousServer {
     private boolean isServerWorking;
     private ByteBuffer buffer;
     private Selector selector;
-
     private final ClientInputHandler commandHandler;
     private final Logger logger;
 
