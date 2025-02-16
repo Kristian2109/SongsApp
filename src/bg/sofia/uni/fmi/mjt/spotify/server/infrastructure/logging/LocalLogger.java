@@ -40,6 +40,7 @@ public class LocalLogger implements Logger {
         try {
             String log = serializer.serialize(pairs);
             fileWriter.append(log);
+            fileWriter.append(System.lineSeparator());
             fileWriter.flush();
         } catch (IOException e) {
             System.out.println("Could not log");
