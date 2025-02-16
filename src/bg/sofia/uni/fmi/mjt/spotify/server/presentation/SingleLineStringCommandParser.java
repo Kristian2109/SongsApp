@@ -1,5 +1,6 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.presentation;
 
+import bg.sofia.uni.fmi.mjt.spotify.server.application.HashingService;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.AddSongToPlaylistCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.Command;
@@ -9,7 +10,6 @@ import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.LoginCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.PlaySongCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.RegisterCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.SearchSongsCommand;
-import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.StreamSongCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.UserRepository;
@@ -22,15 +22,16 @@ public class SingleLineStringCommandParser implements CommandParser {
     private final UserRepository userRepository;
     private final SongsRepository songsRepository;
     private final PlaylistRepository playlistRepository;
-
     private final Logger logger;
-
+    private final HashingService hashingService;
     public SingleLineStringCommandParser(UserRepository userRepository, SongsRepository songsRepository,
-                                         PlaylistRepository playlistRepository, Logger logger) {
+                                         PlaylistRepository playlistRepository, Logger logger,
+                                         HashingService hashingService) {
         this.userRepository = userRepository;
         this.songsRepository = songsRepository;
         this.playlistRepository = playlistRepository;
         this.logger = logger;
+        this.hashingService = hashingService;
     }
 
     @Override
@@ -45,12 +46,11 @@ public class SingleLineStringCommandParser implements CommandParser {
             case "add-song-to" ->
                 new AddSongToPlaylistCommand(songsRepository, playlistRepository, tokens[2], tokens[1]);
             case "search" -> buildSongsCommand(tokens);
-            case "register" -> new RegisterCommand();
-            case "login" -> new LoginCommand();
+            case "register" -> new RegisterCommand(userRepository, hashingService , tokens[1], tokens[2]);
+            case "login" -> new LoginCommand(userRepository, hashingService, tokens[1], tokens[2]);
             case "create-playlist" -> new CreatePlaylistCommand(playlistRepository, tokens[1]);
             case "play" -> new PlaySongCommand(songsRepository, logger, tokens[1]);
             case "show-playlist" -> new GetPlaylistCommand(playlistRepository, tokens[1]);
-            case "stream" -> new StreamSongCommand(songsRepository, tokens[1], Integer.parseInt(tokens[2]));
             default -> throw new IllegalArgumentException("Invalid command " + tokens[0]);
         };
     }

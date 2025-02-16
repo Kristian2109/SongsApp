@@ -1,5 +1,6 @@
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.SimpleHashingService;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging.LocalLogger;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.playlist.LocalFileSystemPlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.songs.LocalFileSystemSongsRepository;
@@ -16,9 +17,10 @@ public class Main {
         LocalFileSystemSongsRepository songsRepository = new LocalFileSystemSongsRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\songs.json");
         LocalFileSystemPlaylistRepository playlistRepository = new LocalFileSystemPlaylistRepository("C:\\Users\\krist\\OneDrive\\Работен плот\\MJT\\SpotifyProject\\data\\playlists.json");
         Logger logger = new LocalLogger();
+        SimpleHashingService hashingService = new SimpleHashingService();
 
         CommandParser commandParser = new SingleLineStringCommandParser(
-            userRepository, songsRepository, playlistRepository, logger
+            userRepository, songsRepository, playlistRepository, logger, hashingService
         );
 
         SocketAsynchronousServer server = new SocketAsynchronousServer(

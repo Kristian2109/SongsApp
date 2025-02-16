@@ -1,27 +1,24 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.domain.models;
 
+import com.google.gson.annotations.Expose;
+
 public class User extends Identifiable {
     private String email;
-    private String password;
+    @Expose(serialize = false)
+    private final String passwordHash;
 
-    public User(String id, String email, String password) {
+    public User(String id, String email, String passwordHash) {
         super(id);
         this.email = email;
-        this.password = password;
+        this.passwordHash = passwordHash;
     }
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public boolean comparePassword(String hashedPassword) {
+        return passwordHash.equals(hashedPassword);
     }
 }

@@ -23,7 +23,6 @@ public class SocketAsynchronousServer {
     private Selector selector;
     private final ClientInputHandler commandHandler;
     private final Logger logger;
-
     public SocketAsynchronousServer(int port, ClientInputHandler commandHandler, Logger logger) {
         this.port = port;
         this.commandHandler = commandHandler;

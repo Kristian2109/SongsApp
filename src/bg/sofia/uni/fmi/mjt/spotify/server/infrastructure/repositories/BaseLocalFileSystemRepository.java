@@ -21,7 +21,6 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
     protected final AtomicInteger lastId = new AtomicInteger();
     protected final Map<String, T> entities = new ConcurrentHashMap<>();
     protected final String fileSourceName;
-
     public BaseLocalFileSystemRepository(Class<T> tClass, String directory) {
         this.tClass = tClass;
         this.fileSourceName = directory;
