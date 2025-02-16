@@ -6,7 +6,7 @@ import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.BaseInMem
 
 import java.util.Optional;
 
-public class SongsInMemoryRepository extends BaseInMemoryRepository<Song> implements SongsRepository{
+public class SongsInMemoryRepository extends BaseInMemoryRepository<Song> implements SongsRepository {
     public SongsInMemoryRepository() {
         super(Song.class);
     }

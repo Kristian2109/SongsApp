@@ -8,10 +8,12 @@ import java.util.Set;
 public class SearchSongsCommand implements Command {
     private final SongsRepository songsRepository;
     private final Set<String> keywords;
+
     public SearchSongsCommand(SongsRepository songsRepository, Set<String> keywords) {
         this.songsRepository = songsRepository;
         this.keywords = keywords;
     }
+
     @Override
     public Object execute() {
         Set<Song> allSongs = songsRepository.getAll();

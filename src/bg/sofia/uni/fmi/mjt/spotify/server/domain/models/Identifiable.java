@@ -2,16 +2,16 @@ package bg.sofia.uni.fmi.mjt.spotify.server.domain.models;
 
 public class Identifiable {
     public Identifiable(String id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getId() {
-        return Id;
+        return id;
     }
 
     public void setId(String id) {
-        Id = id;
+        this.id = id;
     }
 
-    private String Id;
+    private String id;
 }

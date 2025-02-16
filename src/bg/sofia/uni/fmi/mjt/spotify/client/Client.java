@@ -20,6 +20,10 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class Client {
+    private static final String HOSTNAME = "localhost";
+    private static final int SPOTIFY_SERVER_PORT = 3000;
+    private static final int STREAMING_SERVER_PORT = 8000;
+    private static final int STREAMING_BUFFER_SIZE = 4096;
     private String streamingConnection;
     public static void main(String[] args) {
         Client client = new Client();
@@ -32,7 +36,7 @@ public class Client {
              PrintWriter writer = new PrintWriter(Channels.newWriter(socketChannel, StandardCharsets.UTF_8), true);
              Scanner scanner = new Scanner(System.in)) {
 
-            socketChannel.connect(new InetSocketAddress("localhost", 3000));
+            socketChannel.connect(new InetSocketAddress(HOSTNAME, SPOTIFY_SERVER_PORT));
 
             System.out.println("Connected to the server.");
 
@@ -93,7 +97,7 @@ public class Client {
                  AudioSystem.NOT_SPECIFIED
              )
         ) {
-            socketChannel.connect(new InetSocketAddress("localhost", 8000));
+            socketChannel.connect(new InetSocketAddress(HOSTNAME, STREAMING_SERVER_PORT));
             streamingConnection = UUID.randomUUID().toString();
 
             writer.write(streamingConnection);
@@ -105,7 +109,7 @@ public class Client {
             dataLine.open();
             dataLine.start();
 
-            byte[] bufferBytes = new byte[4096];
+            byte[] bufferBytes = new byte[STREAMING_BUFFER_SIZE];
             int readBytes;
             while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
                 dataLine.write(bufferBytes, 0, readBytes);

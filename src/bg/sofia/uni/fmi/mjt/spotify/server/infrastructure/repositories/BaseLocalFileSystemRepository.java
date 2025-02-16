@@ -30,6 +30,7 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
         lastId.set(highestId + 1);
         entitiesList.forEach(e -> entities.put(e.getId(), e));
     }
+
     public T getOrThrow(String id) {
         if (!entities.containsKey(id)) {
             throw new EntityNotFoundException("No " + tClass.getSimpleName() + " found with id " + id);

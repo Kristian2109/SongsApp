@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutorService;
 
 public class StreamingServer {
     public static StreamingServer streamingServer;
+    private static final int BUFFER_SIZE = 4096;
     private final int port;
 
     public static StreamingServer getInstance() {
@@ -86,7 +87,7 @@ public class StreamingServer {
         try (OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream()) {
 
-            byte[] buffer = new byte[4096];
+            byte[] buffer = new byte[BUFFER_SIZE];
             int bytesRead;
 
             bytesRead = inputStream.read(buffer);

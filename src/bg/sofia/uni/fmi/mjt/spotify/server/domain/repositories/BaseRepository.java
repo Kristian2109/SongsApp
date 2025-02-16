@@ -6,7 +6,9 @@ import java.util.Set;
 
 public interface BaseRepository<T extends Identifiable> {
     T getOrThrow(String id);
+
     T create(T toCreate);
+
     T updateOrThrow(T toUpdate);
 
     Set<T> getAll();
