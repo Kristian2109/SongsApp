@@ -1,5 +1,7 @@
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.GsonSerializer;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.Serializer;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.SimpleHashingService;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging.LocalLogger;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.playlist.LocalFileSystemPlaylistRepository;
@@ -9,7 +11,11 @@ import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SimpleClientInputHandler
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SingleLineStringCommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SpotifyServer;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -20,9 +26,10 @@ public class Main {
     private static final String USERS_FILE = "users.json";
     private static final String SONGS_FILE = "songs.json";
     private static final String PLAYLISTS_FILE = "playlists.json";
+    private static final String LOGS_FILE = "logs.json";
     private static final int SPOTIFY_SERVER_PORT = 3000;
     private static final int STREAMING_SERVER_PORT = 8000;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         LocalFileSystemUserRepository userRepository = new LocalFileSystemUserRepository(
             Path.of(DATA_DIRECTORY, USERS_FILE));
         LocalFileSystemSongsRepository songsRepository = new LocalFileSystemSongsRepository(
@@ -31,7 +38,8 @@ public class Main {
             Path.of(DATA_DIRECTORY, PLAYLISTS_FILE)
         );
 
-        Logger logger = new LocalLogger();
+        Serializer serializer = new GsonSerializer(new Gson());
+        Logger logger = new LocalLogger(serializer, new FileWriter(new File(DATA_DIRECTORY, LOGS_FILE)));
         SimpleHashingService hashingService = new SimpleHashingService();
         CommandParser commandParser = new SingleLineStringCommandParser(
             userRepository, songsRepository, playlistRepository, logger, hashingService

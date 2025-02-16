@@ -1,19 +1,23 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging;
 
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
-import com.google.gson.Gson;
+import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.Serializer;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 public class LocalLogger implements Logger {
-    private final Gson gson = new Gson();
+    private final Serializer serializer;
+    private final FileWriter fileWriter;
+    public LocalLogger(Serializer serializer, FileWriter fileWriter) {
+        this.serializer = serializer;
+        this.fileWriter = fileWriter;
+    }
+
     private void log(String message) {
-        Map<String, Object> logResult = new HashMap<>();
-        logResult.put("message", message);
-        logResult.put("time", LocalDateTime.now().toString());
-        System.out.println(gson.toJson(logResult));
+        logInfoPairs(Map.of("message", message, "time", LocalDateTime.now().toString()));
     }
 
     @Override
@@ -29,5 +33,16 @@ public class LocalLogger implements Logger {
     @Override
     public void logWarning(String message) {
         log(message);
+    }
+
+    @Override
+    public void logInfoPairs(Map<String, Object> pairs) {
+        try {
+            String log = serializer.toJson(pairs);
+            fileWriter.append(log);
+            fileWriter.flush();
+        } catch (IOException e) {
+            System.out.println("Could not log");
+        }
     }
 }
