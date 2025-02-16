@@ -4,12 +4,14 @@ public class Song extends Identifiable {
     private String name;
     private String source;
     private String singerName;
+    private int listeningsCount;
 
-    public Song(String id, String name, String source, String singerName) {
+    public Song(String id, String name, String source, String singerName, int listeningsCount) {
         super(id);
         this.name = name;
         this.source = source;
         this.singerName = singerName;
+        this.listeningsCount = listeningsCount;
     }
 
     public String getName() {
@@ -34,5 +36,13 @@ public class Song extends Identifiable {
 
     public void setSingerName(String singerName) {
         this.singerName = singerName;
+    }
+
+    public int getListeningsCount() {
+        return listeningsCount;
+    }
+
+    public void incrementListings() {
+        this.listeningsCount++;
     }
 }

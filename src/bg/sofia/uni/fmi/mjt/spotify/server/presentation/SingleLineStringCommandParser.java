@@ -10,6 +10,7 @@ import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.LoginCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.PlaySongCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.RegisterCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.SearchSongsCommand;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.SearchTopSongsCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.UserRepository;
@@ -51,6 +52,7 @@ public class SingleLineStringCommandParser implements CommandParser {
             case "create-playlist" -> new CreatePlaylistCommand(playlistRepository, tokens[1]);
             case "play" -> new PlaySongCommand(songsRepository, logger, tokens[1]);
             case "show-playlist" -> new GetPlaylistCommand(playlistRepository, tokens[1]);
+            case "top" -> new SearchTopSongsCommand(songsRepository, Integer.parseInt(tokens[1]));
             default -> throw new IllegalArgumentException("Invalid command " + tokens[0]);
         };
     }

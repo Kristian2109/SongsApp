@@ -33,6 +33,8 @@ public class PlaySongCommand implements Command {
 
         try {
             AudioFormat audioFormat = AudioSystem.getAudioInputStream(songPath).getFormat();
+            song.incrementListings();
+            songsRepository.updateOrThrow(song);
             new Thread(() -> beginStreaming(songPath.getAbsolutePath(), streamingPort, logger)).start();
             return mapAudioToSerializable(audioFormat, streamingPort);
         } catch (UnsupportedAudioFileException | IOException e) {
