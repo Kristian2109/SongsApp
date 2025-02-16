@@ -8,8 +8,10 @@ import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.user.Loca
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SimpleClientInputHandler;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SingleLineStringCommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SocketAsynchronousServer;
+import bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer;
 
 import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,9 +31,8 @@ public class Main {
             logger
         );
 //
-//        StreamingServer.initialize(logger, Executors.newCachedThreadPool(), songsRepository, 8000);
-//        StreamingServer streamingServer = StreamingServer.getInstance();
-//        streamingServer.start();
+        StreamingServer.initialize(logger, Executors.newCachedThreadPool(), songsRepository, 8000);
+        StreamingServer streamingServer = StreamingServer.getInstance();
 
         new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
@@ -40,12 +41,13 @@ public class Main {
                 String command = scanner.nextLine().trim();
                 if (command.equals("stop")) {
                     server.stop();
-//                    streamingServer.stop();
+                    streamingServer.stop();
                     isRunning = false;
                 }
             }
         }).start();
 
+        new Thread(streamingServer::start).start();
         server.start();
         songsRepository.saveEntitiesToFileSystem();
         userRepository.saveEntitiesToFileSystem();

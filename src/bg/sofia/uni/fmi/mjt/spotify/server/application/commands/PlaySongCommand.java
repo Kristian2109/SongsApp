@@ -35,14 +35,14 @@ public class PlaySongCommand implements Command {
             AudioFormat audioFormat = AudioSystem.getAudioInputStream(songPath).getFormat();
             song.incrementListings();
             songsRepository.updateOrThrow(song);
-            new Thread(() -> beginStreaming(songPath.getAbsolutePath(), streamingPort, logger)).start();
-            return mapAudioToSerializable(audioFormat, streamingPort);
+//            new Thread(() -> beginStreaming(songPath.getAbsolutePath(), streamingPort, logger)).start();
+            return mapAudioToSerializable(audioFormat, song);
         } catch (UnsupportedAudioFileException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private AudioFormatSerializable mapAudioToSerializable(AudioFormat audioFormat, int streamingPort) {
+    private AudioFormatSerializable mapAudioToSerializable(AudioFormat audioFormat, Song song) {
         return new AudioFormatSerializable(
             audioFormat.getEncoding().toString(),
             audioFormat.getSampleRate(),
@@ -51,7 +51,7 @@ public class PlaySongCommand implements Command {
             audioFormat.getFrameSize(),
             audioFormat.getFrameRate(),
             audioFormat.isBigEndian(),
-            streamingPort
+            song.getId()
         );
     }
 

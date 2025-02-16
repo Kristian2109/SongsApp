@@ -58,7 +58,7 @@ public class StreamingServer {
     }
 
     public void start() {
-        try (ServerSocket serverSocket = new ServerSocket(port);) {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
             this.serverSocket = serverSocket;
             while (!serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
@@ -85,11 +85,13 @@ public class StreamingServer {
 
         try (OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream()) {
-            String connectionId = socket.getRemoteSocketAddress().toString();
-            streamingConnections.add(connectionId);
 
             byte[] buffer = new byte[4096];
             int bytesRead;
+
+            bytesRead = inputStream.read(buffer);
+            String connectionId = new String(buffer, 0, bytesRead, StandardCharsets.UTF_8);
+            streamingConnections.add(connectionId);
 
             bytesRead = inputStream.read(buffer);
             if (bytesRead == -1) {
@@ -99,6 +101,7 @@ public class StreamingServer {
 
             String songId = new String(buffer, 0, bytesRead, StandardCharsets.UTF_8);
             Song song = this.songsRepository.getOrThrow(songId);
+            logger.logInfo("Streaming running");
 
             FileInputStream fileInputStream = new FileInputStream(song.getSource());
             while ((bytesRead = fileInputStream.read(buffer)) != -1) {

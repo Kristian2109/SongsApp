@@ -9,18 +9,18 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.channels.Channels;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Client {
+    private String streamingConnection;
     public static void main(String[] args) {
         Client client = new Client();
         client.runClient();
@@ -42,6 +42,10 @@ public class Client {
 
                 if ("disconnect".equals(message)) {
                     break;
+                }
+
+                if (message.startsWith("stop")) {
+                    message += " " + streamingConnection;
                 }
 
                 System.out.println("Sending message <" + message + "> to the server...");
@@ -66,8 +70,7 @@ public class Client {
                         formatSerializable.bigEndian()
                     );
 
-                    int streamingPort = formatSerializable.port();
-                    new Thread(() -> startStreaming(streamingPort, format)).start();
+                    new Thread(() -> startStreaming(format, formatSerializable.songId())).start();
                 }
 
                 System.out.println("The server replied <" + reply + ">");
@@ -77,26 +80,39 @@ public class Client {
         }
     }
 
-    private void startStreaming(int port, AudioFormat audioFormat) {
+    private void startStreaming(AudioFormat audioFormat, String songId) {
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+        System.out.println("Try to create connection");
 
-        try (Socket socket = new Socket("localhost", port);
+        try (SocketChannel socketChannel = SocketChannel.open();
+             PrintWriter writer = new PrintWriter(Channels.newWriter(socketChannel, StandardCharsets.UTF_8), true);
              SourceDataLine dataLine = (SourceDataLine) AudioSystem.getLine(info);
-             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
-                 new BufferedInputStream(socket.getInputStream()));
+             AudioInputStream audioInputStream = new AudioInputStream(
+                 Channels.newInputStream(socketChannel),
+                 audioFormat,
+                 AudioSystem.NOT_SPECIFIED
+             )
         ) {
+            socketChannel.connect(new InetSocketAddress("localhost", 8000));
+            streamingConnection = UUID.randomUUID().toString();
+
+            writer.write(streamingConnection);
+            writer.flush();
+
+            writer.write(songId);
+            writer.flush();
+
             dataLine.open();
             dataLine.start();
 
-            if (socket.isConnected()) {
-                byte[] bufferBytes = new byte[4096];
-                int readBytes;
-                while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
-                    dataLine.write(bufferBytes, 0, readBytes);
-                }
-
-                dataLine.drain();
+            byte[] bufferBytes = new byte[4096];
+            int readBytes;
+            while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
+                dataLine.write(bufferBytes, 0, readBytes);
             }
+
+            dataLine.drain();
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
