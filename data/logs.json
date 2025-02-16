@@ -1,1 +1,28 @@
-{"time":"2025-02-16T14:31:34.623211200","message":"Request Start"}{"time":"2025-02-16T14:31:34.633820100","message":"Success"}{"time":"2025-02-16T14:31:34.636868600","message":"Request End"}{"time":"2025-02-16T14:32:01.619443500","message":"Request Start"}{"time":"2025-02-16T14:32:01.620434100","message":"Success"}{"time":"2025-02-16T14:32:01.620434100","message":"Request End"}{"time":"2025-02-16T14:35:35.158533","message":"Request Start"}
+{"time":"2025-02-16T16:45:53.104411400","message":"Request Start"}
+{"time":"2025-02-16T16:45:53.118096700","message":"Success"}
+{"time":"2025-02-16T16:45:53.129162","message":"Request End"}
+{"time":"2025-02-16T16:45:53.371216300","message":"Streaming Began"}
+{"time":"2025-02-16T16:45:53.418704700","message":"Streaming running"}
+{"time":"2025-02-16T16:45:55.354337700","message":"Request Start"}
+{"time":"2025-02-16T16:45:55.355339400","message":"Success"}
+{"time":"2025-02-16T16:45:55.355339400","message":"Request End"}
+{"stack":"[Ljava.lang.StackTraceElement;@9a80742","message":"java.net.SocketException: Connection reset by peer"}
+{"time":"2025-02-16T16:45:55.871927900","message":"Streaming ended"}
+{"time":"2025-02-16T16:46:03.418231900","message":"Request Start"}
+{"time":"2025-02-16T16:46:03.420336500","message":"Success"}
+{"time":"2025-02-16T16:46:03.421335100","message":"Request End"}
+{"time":"2025-02-16T16:46:03.425358400","message":"Streaming Began"}
+{"time":"2025-02-16T16:46:33.114685500","message":"Request Start"}
+{"stack":"[Ljava.lang.StackTraceElement;@641ac139","message":"java.net.SocketException: Connection reset"}
+{"time":"2025-02-16T16:46:39.068344400","message":"Streaming ended"}
+{"time":"2025-02-16T16:46:50.178749200","message":"Request Start"}
+{"time":"2025-02-16T16:46:50.180842900","message":"Success"}
+{"time":"2025-02-16T16:46:50.181887500","message":"Request End"}
+{"time":"2025-02-16T16:46:50.413004800","message":"Streaming Began"}
+{"time":"2025-02-16T16:46:50.461038100","message":"Streaming running"}
+{"time":"2025-02-16T16:46:53.764940700","message":"Request Start"}
+{"time":"2025-02-16T16:46:53.765918100","message":"Success"}
+{"time":"2025-02-16T16:46:53.766928","message":"Request End"}
+{"stack":"[Ljava.lang.StackTraceElement;@2dc148ef","message":"java.net.SocketException: Connection reset by peer"}
+{"time":"2025-02-16T16:46:54.255093100","message":"Streaming ended"}
+{"time":"2025-02-16T16:47:01.718422700","message":"Request Start"}

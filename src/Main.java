@@ -1,4 +1,5 @@
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingServiceImpl;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.CommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.GsonSerializer;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.Serializer;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.Executors;
 
 public class Main {
@@ -40,16 +43,19 @@ public class Main {
         Serializer serializer = new GsonSerializer(new Gson());
         Logger logger = new LocalLogger(serializer, new FileWriter(new File(DATA_DIRECTORY, LOGS_FILE)));
         SimpleHashingService hashingService = new SimpleHashingService();
+
+        Set<String> connectionIds = new ConcurrentSkipListSet<>();
+        StreamingServiceImpl streamingService = new StreamingServiceImpl(connectionIds, logger, songsRepository);
         CommandParser commandParser = new SingleLineStringCommandParser(
-            userRepository, songsRepository, playlistRepository, logger, hashingService
+            userRepository, songsRepository, playlistRepository, streamingService, logger, hashingService
         );
 
         SpotifyServer spotifyServer = new SpotifyServer(SPOTIFY_SERVER_PORT,
             new SimpleClientInputHandler(commandParser, logger),
             logger);
 
-        StreamingServer.initialize(logger, Executors.newCachedThreadPool(), songsRepository, STREAMING_SERVER_PORT);
-        StreamingServer streamingServer = StreamingServer.getInstance();
+        StreamingServer streamingServer = new StreamingServer(streamingService, STREAMING_SERVER_PORT, logger,
+            Executors.newCachedThreadPool());
 
         new Thread(() -> runAdminConsole(spotifyServer, streamingServer)).start();
         new Thread(streamingServer::start).start();

@@ -1,18 +1,19 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.application.commands;
 
-import bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingService;
 
 public class StopPlayingSongCommand implements Command {
     private final String connectionId;
+    private final StreamingService streamingService;
 
-    public StopPlayingSongCommand(String connectionId) {
+    public StopPlayingSongCommand(String connectionId, StreamingService streamingService) {
         this.connectionId = connectionId;
+        this.streamingService = streamingService;
     }
 
     @Override
     public Object execute() {
-        StreamingServer server = StreamingServer.getInstance();
-        server.stopConnection(connectionId);
+        streamingService.stopStreaming(connectionId);
         return "Connection Stopped";
     }
 }

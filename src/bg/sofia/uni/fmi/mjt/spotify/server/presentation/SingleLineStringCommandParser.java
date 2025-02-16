@@ -2,6 +2,7 @@ package bg.sofia.uni.fmi.mjt.spotify.server.presentation;
 
 import bg.sofia.uni.fmi.mjt.spotify.server.application.HashingService;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.Logger;
+import bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingService;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.AddSongToPlaylistCommand;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.Command;
 import bg.sofia.uni.fmi.mjt.spotify.server.application.commands.CreatePlaylistCommand;
@@ -24,14 +25,17 @@ public class SingleLineStringCommandParser implements CommandParser {
     private final UserRepository userRepository;
     private final SongsRepository songsRepository;
     private final PlaylistRepository playlistRepository;
+    private final StreamingService streamingService;
     private final Logger logger;
     private final HashingService hashingService;
     public SingleLineStringCommandParser(UserRepository userRepository, SongsRepository songsRepository,
-                                         PlaylistRepository playlistRepository, Logger logger,
+                                         PlaylistRepository playlistRepository, StreamingService streamingService,
+                                         Logger logger,
                                          HashingService hashingService) {
         this.userRepository = userRepository;
         this.songsRepository = songsRepository;
         this.playlistRepository = playlistRepository;
+        this.streamingService = streamingService;
         this.logger = logger;
         this.hashingService = hashingService;
     }
@@ -54,7 +58,7 @@ public class SingleLineStringCommandParser implements CommandParser {
             case "play" -> new PlaySongCommand(songsRepository, logger, tokens[1]);
             case "show-playlist" -> new GetPlaylistCommand(playlistRepository, tokens[1]);
             case "top" -> new SearchTopSongsCommand(songsRepository, Integer.parseInt(tokens[1]));
-            case "stop" -> new StopPlayingSongCommand(tokens[1]);
+            case "stop" -> new StopPlayingSongCommand(tokens[1], streamingService);
             default -> throw new IllegalArgumentException("Invalid command " + tokens[0]);
         };
     }
