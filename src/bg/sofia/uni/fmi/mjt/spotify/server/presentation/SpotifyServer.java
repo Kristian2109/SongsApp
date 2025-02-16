@@ -14,7 +14,7 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-public class SocketAsynchronousServer {
+public class SpotifyServer {
     private static final int BUFFER_SIZE = 1024;
     private static final String HOST = "localhost";
     private final int port;
@@ -23,7 +23,7 @@ public class SocketAsynchronousServer {
     private Selector selector;
     private final ClientInputHandler commandHandler;
     private final Logger logger;
-    public SocketAsynchronousServer(int port, ClientInputHandler commandHandler, Logger logger) {
+    public SpotifyServer(int port, ClientInputHandler commandHandler, Logger logger) {
         this.port = port;
         this.commandHandler = commandHandler;
         this.logger = logger;

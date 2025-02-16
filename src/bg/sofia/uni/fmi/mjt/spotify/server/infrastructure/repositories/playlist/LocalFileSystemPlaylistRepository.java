@@ -4,12 +4,13 @@ import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Playlist;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.BaseLocalFileSystemRepository;
 
+import java.nio.file.Path;
 import java.util.Optional;
 
 public class LocalFileSystemPlaylistRepository extends BaseLocalFileSystemRepository<Playlist> implements
     PlaylistRepository {
-    public LocalFileSystemPlaylistRepository(String directory) {
-        super(Playlist.class, directory);
+    public LocalFileSystemPlaylistRepository(Path sourceFile) {
+        super(Playlist.class, sourceFile);
     }
 
     @Override

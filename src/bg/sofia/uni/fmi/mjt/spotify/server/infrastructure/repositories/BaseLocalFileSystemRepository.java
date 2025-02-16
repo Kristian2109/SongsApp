@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,10 +21,10 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
     protected final Class<T> tClass;
     protected final AtomicInteger lastId = new AtomicInteger();
     protected final Map<String, T> entities = new ConcurrentHashMap<>();
-    protected final String fileSourceName;
-    public BaseLocalFileSystemRepository(Class<T> tClass, String directory) {
+    protected final Path sourceFile;
+    public BaseLocalFileSystemRepository(Class<T> tClass, Path sourceFile) {
         this.tClass = tClass;
-        this.fileSourceName = directory;
+        this.sourceFile = sourceFile;
         List<T> entitiesList = readEntitiesFromFileSystem();
         int highestId = entitiesList.stream().mapToInt(e -> Integer.parseInt(e.getId())).max().orElse(0);
         lastId.set(highestId + 1);
@@ -58,7 +59,7 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
     }
 
     private List<T> readEntitiesFromFileSystem() {
-        try (var reader = new FileReader(fileSourceName)) {
+        try (var reader = new FileReader(sourceFile.toString())) {
             Type type = TypeToken.getParameterized(List.class, tClass).getType();
             List<T> res = new Gson().fromJson(reader, type);
             if (res == null) {
@@ -71,7 +72,7 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
     }
 
     public void saveEntitiesToFileSystem() {
-        try (var writer = new FileWriter(fileSourceName)) {
+        try (var writer = new FileWriter(sourceFile.toString())) {
             new Gson().toJson(entities.values(), writer);
         } catch (IOException e) {
             throw new RuntimeException("Cannot read entities");
