@@ -1,28 +1,90 @@
-{"time":"2025-02-16T16:45:53.104411400","message":"Request Start"}
-{"time":"2025-02-16T16:45:53.118096700","message":"Success"}
-{"time":"2025-02-16T16:45:53.129162","message":"Request End"}
-{"time":"2025-02-16T16:45:53.371216300","message":"Streaming Began"}
-{"time":"2025-02-16T16:45:53.418704700","message":"Streaming running"}
-{"time":"2025-02-16T16:45:55.354337700","message":"Request Start"}
-{"time":"2025-02-16T16:45:55.355339400","message":"Success"}
-{"time":"2025-02-16T16:45:55.355339400","message":"Request End"}
-{"stack":"[Ljava.lang.StackTraceElement;@9a80742","message":"java.net.SocketException: Connection reset by peer"}
-{"time":"2025-02-16T16:45:55.871927900","message":"Streaming ended"}
-{"time":"2025-02-16T16:46:03.418231900","message":"Request Start"}
-{"time":"2025-02-16T16:46:03.420336500","message":"Success"}
-{"time":"2025-02-16T16:46:03.421335100","message":"Request End"}
-{"time":"2025-02-16T16:46:03.425358400","message":"Streaming Began"}
-{"time":"2025-02-16T16:46:33.114685500","message":"Request Start"}
-{"stack":"[Ljava.lang.StackTraceElement;@641ac139","message":"java.net.SocketException: Connection reset"}
-{"time":"2025-02-16T16:46:39.068344400","message":"Streaming ended"}
-{"time":"2025-02-16T16:46:50.178749200","message":"Request Start"}
-{"time":"2025-02-16T16:46:50.180842900","message":"Success"}
-{"time":"2025-02-16T16:46:50.181887500","message":"Request End"}
-{"time":"2025-02-16T16:46:50.413004800","message":"Streaming Began"}
-{"time":"2025-02-16T16:46:50.461038100","message":"Streaming running"}
-{"time":"2025-02-16T16:46:53.764940700","message":"Request Start"}
-{"time":"2025-02-16T16:46:53.765918100","message":"Success"}
-{"time":"2025-02-16T16:46:53.766928","message":"Request End"}
-{"stack":"[Ljava.lang.StackTraceElement;@2dc148ef","message":"java.net.SocketException: Connection reset by peer"}
-{"time":"2025-02-16T16:46:54.255093100","message":"Streaming ended"}
-{"time":"2025-02-16T16:47:01.718422700","message":"Request Start"}
+{"time":"2025-02-16T17:21:27.779584100","message":"Request Start"}
+{"time":"2025-02-16T17:21:27.790747200","message":"Success"}
+{"time":"2025-02-16T17:21:27.793748200","message":"Request End"}
+{"time":"2025-02-16T17:21:32.423027600","message":"Request Start"}
+{"time":"2025-02-16T17:21:32.431740800","message":"Success"}
+{"time":"2025-02-16T17:21:32.443731","message":"Request End"}
+{"time":"2025-02-16T17:21:32.649017200","message":"Streaming Began"}
+{"time":"2025-02-16T17:21:32.701068800","message":"Streaming running"}
+{"time":"2025-02-16T17:21:37.859471300","message":"Request Start"}
+{"time":"2025-02-16T17:21:37.860452300","message":"Success"}
+{"time":"2025-02-16T17:21:37.861545800","message":"Request End"}
+{"time":"2025-02-16T17:22:09.893599700","message":"Request Start"}
+{"time":"2025-02-16T17:22:09.894599800","message":"Success"}
+{"time":"2025-02-16T17:22:09.895588900","message":"Request End"}
+{"time":"2025-02-16T17:22:57.557128200","message":"Request Start"}
+{"time":"2025-02-16T17:22:57.558134700","message":"Success"}
+{"time":"2025-02-16T17:22:57.558134700","message":"Request End"}
+{"message":"java.net.SocketException: Connection reset by peer","stack":"[Ljava.lang.StackTraceElement;@5936d249"}
+{"time":"2025-02-16T17:22:58.009972","message":"Streaming ended"}
+{"time":"2025-02-16T17:23:02.636070400","message":"Request Start"}
+{"time":"2025-02-16T17:23:02.637077700","message":"Success"}
+{"time":"2025-02-16T17:23:02.639070","message":"Request End"}
+{"time":"2025-02-16T17:23:02.644068500","message":"Streaming Began"}
+{"time":"2025-02-16T17:23:07.571606400","message":"Request Start"}
+{"time":"2025-02-16T17:23:07.572611200","message":"Success"}
+{"time":"2025-02-16T17:23:07.573614","message":"Request End"}
+{"time":"2025-02-16T17:23:07.579493","message":"Streaming Began"}
+{"time":"2025-02-16T17:23:28.308761400","message":"Request Start"}
+{"time":"2025-02-16T17:23:28.310825900","message":"Success"}
+{"time":"2025-02-16T17:23:28.311843500","message":"Request End"}
+{"time":"2025-02-16T17:23:28.528117900","message":"Streaming Began"}
+{"time":"2025-02-16T17:23:28.575613400","message":"Streaming running"}
+{"time":"2025-02-16T17:23:31.599934200","message":"Request Start"}
+{"time":"2025-02-16T17:23:31.599934200","message":"Success"}
+{"time":"2025-02-16T17:23:31.600934900","message":"Request End"}
+{"time":"2025-02-16T17:23:34.193128700","message":"Request Start"}
+{"time":"2025-02-16T17:23:34.194286100","message":"Success"}
+{"time":"2025-02-16T17:23:34.194286100","message":"Request End"}
+{"message":"java.net.SocketException: Connection reset by peer","stack":"[Ljava.lang.StackTraceElement;@24a075d1"}
+{"time":"2025-02-16T17:23:34.647969400","message":"Streaming ended"}
+{"time":"2025-02-16T17:23:38.278910200","message":"Request Start"}
+{"time":"2025-02-16T17:26:53.441025800","message":"Request Start"}
+{"time":"2025-02-16T17:26:53.443047","message":"Success"}
+{"time":"2025-02-16T17:26:53.444054200","message":"Request End"}
+{"time":"2025-02-16T17:26:53.645794800","message":"Streaming Began"}
+{"time":"2025-02-16T17:26:53.694402400","message":"Streaming running"}
+{"time":"2025-02-16T17:26:56.151525600","message":"Request Start"}
+{"time":"2025-02-16T17:26:56.152543300","message":"Success"}
+{"time":"2025-02-16T17:26:56.152543300","message":"Request End"}
+{"message":"java.net.SocketException: Connection reset by peer","stack":"[Ljava.lang.StackTraceElement;@773d663a"}
+{"time":"2025-02-16T17:26:56.181183400","message":"Streaming ended"}
+{"time":"2025-02-16T17:26:58.850961200","message":"Request Start"}
+{"time":"2025-02-16T17:26:58.853167200","message":"Success"}
+{"time":"2025-02-16T17:26:58.853687300","message":"Request End"}
+{"time":"2025-02-16T17:26:58.857707400","message":"Streaming Began"}
+{"time":"2025-02-16T17:27:02.081623","message":"Request Start"}
+{"time":"2025-02-16T17:27:02.081623","message":"Success"}
+{"time":"2025-02-16T17:27:02.082627400","message":"Request End"}
+{"time":"2025-02-16T17:27:11.282706900","message":"Request Start"}
+{"time":"2025-02-16T17:27:11.284708","message":"Success"}
+{"time":"2025-02-16T17:27:11.285698300","message":"Request End"}
+{"time":"2025-02-16T17:27:11.290700100","message":"Streaming Began"}
+{"time":"2025-02-16T17:27:13.659415200","message":"Request Start"}
+{"time":"2025-02-16T17:27:13.659415200","message":"Success"}
+{"time":"2025-02-16T17:27:13.660420100","message":"Request End"}
+{"time":"2025-02-16T17:27:18.348538600","message":"Request Start"}
+{"message":"java.net.SocketException: Connection reset","stack":"[Ljava.lang.StackTraceElement;@6af781a7"}
+{"message":"java.net.SocketException: Connection reset","stack":"[Ljava.lang.StackTraceElement;@79fa86ad"}
+{"time":"2025-02-16T17:27:24.550129700","message":"Streaming ended"}
+{"time":"2025-02-16T17:27:24.550129700","message":"Streaming ended"}
+{"time":"2025-02-16T17:28:57.347229","message":"Request Start"}
+{"time":"2025-02-16T17:28:57.348222100","message":"Success"}
+{"time":"2025-02-16T17:28:57.349217","message":"Request End"}
+{"time":"2025-02-16T17:28:57.558875800","message":"Streaming Began"}
+{"time":"2025-02-16T17:28:57.609487","message":"Streaming running"}
+{"time":"2025-02-16T17:29:00.431052700","message":"Request Start"}
+{"time":"2025-02-16T17:29:00.432090400","message":"Success"}
+{"time":"2025-02-16T17:29:00.432090400","message":"Request End"}
+{"message":"java.net.SocketException: Connection reset by peer","stack":"[Ljava.lang.StackTraceElement;@3692bf54"}
+{"time":"2025-02-16T17:29:00.527569400","message":"Streaming ended"}
+{"time":"2025-02-16T17:29:04.182109600","message":"Request Start"}
+{"time":"2025-02-16T17:29:04.185157100","message":"Success"}
+{"time":"2025-02-16T17:29:04.185157100","message":"Request End"}
+{"time":"2025-02-16T17:29:04.190536100","message":"Streaming Began"}
+{"time":"2025-02-16T17:29:06.270558800","message":"Request Start"}
+{"time":"2025-02-16T17:29:06.270558800","message":"Success"}
+{"time":"2025-02-16T17:29:06.271539600","message":"Request End"}
+{"time":"2025-02-16T17:29:08.706375500","message":"Request Start"}
+{"message":"java.net.SocketException: Connection reset","stack":"[Ljava.lang.StackTraceElement;@385547f6"}
+{"time":"2025-02-16T17:29:12.475353500","message":"Streaming ended"}

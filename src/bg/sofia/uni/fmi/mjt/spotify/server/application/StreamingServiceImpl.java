@@ -36,11 +36,6 @@ public class StreamingServiceImpl implements StreamingService {
             streamingConnectionIds.add(connectionId);
 
             bytesRead = inputStream.read(buffer);
-            if (bytesRead == -1) {
-                logger.logInfo("No song provided");
-                return;
-            }
-
             String songId = new String(buffer, 0, bytesRead, StandardCharsets.UTF_8);
             Song song = this.songsRepository.getOrThrow(songId);
             logger.logInfo("Streaming running");

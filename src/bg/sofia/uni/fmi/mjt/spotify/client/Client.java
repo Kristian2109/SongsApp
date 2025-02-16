@@ -1,14 +1,10 @@
 package bg.sofia.uni.fmi.mjt.spotify.client;
 
 import bg.sofia.uni.fmi.mjt.spotify.common.AudioFormatSerializable;
-import bg.sofia.uni.fmi.mjt.spotify.common.ServerResponse;
+import bg.sofia.uni.fmi.mjt.spotify.common.StreamingInfoServerResponse;
 import com.google.gson.Gson;
 
 import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.SourceDataLine;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,17 +12,22 @@ import java.net.InetSocketAddress;
 import java.nio.channels.Channels;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class Client {
     private static final String HOSTNAME = "localhost";
     private static final int SPOTIFY_SERVER_PORT = 3000;
-    private static final int STREAMING_SERVER_PORT = 8000;
-    private static final int STREAMING_BUFFER_SIZE = 4096;
-    private String streamingConnection;
+    private final PlaySongService playSongService;
+    private boolean isRunning = false;
+
+    public Client(PlaySongService playSongService) {
+        this.playSongService = playSongService;
+    }
+
     public static void main(String[] args) {
-        Client client = new Client();
+        PlaySongService playService = new PlaySongService();
+        Client client = new Client(playService);
         client.runClient();
     }
 
@@ -37,90 +38,57 @@ public class Client {
              Scanner scanner = new Scanner(System.in)) {
 
             socketChannel.connect(new InetSocketAddress(HOSTNAME, SPOTIFY_SERVER_PORT));
-
+            isRunning = true;
             System.out.println("Connected to the server.");
 
-            while (true) {
-                System.out.print("Enter message: ");
-                String message = scanner.nextLine();
-
-                if ("disconnect".equals(message)) {
-                    break;
-                }
-
-                if (message.startsWith("stop")) {
-                    message += " " + streamingConnection;
-                    streamingConnection = null;
-                }
-
-                System.out.println("Sending message <" + message + "> to the server...");
-
-                writer.println(message);
-
-                String reply = reader.readLine();
-
-                if (message.startsWith("play")) {
-                    Gson gson = new Gson();
-                    ServerResponse response = gson.fromJson(reply, ServerResponse.class);
-
-                    System.out.println(response);
-                    AudioFormatSerializable formatSerializable = response.result();
-                    AudioFormat format = new AudioFormat(
-                        new AudioFormat.Encoding(formatSerializable.encoding()),
-                        formatSerializable.sampleRate(),
-                        formatSerializable.sampleSizeInBits(),
-                        formatSerializable.channels(),
-                        formatSerializable.frameSize(),
-                        formatSerializable.frameRate(),
-                        formatSerializable.bigEndian()
-                    );
-
-                    new Thread(() -> startStreaming(format, formatSerializable.songId())).start();
-                }
-
-                System.out.println("The server replied <" + reply + ">");
+            while (isRunning) {
+                handleActionCycle(reader, writer, scanner);
             }
         } catch (IOException e) {
             throw new RuntimeException("There is a problem with the network communication", e);
         }
     }
 
-    private void startStreaming(AudioFormat audioFormat, String songId) {
-        DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
+    void handleActionCycle(BufferedReader reader, PrintWriter writer, Scanner scanner) throws IOException {
+        System.out.print("Enter message: ");
+        String message = scanner.nextLine();
 
-        try (SocketChannel socketChannel = SocketChannel.open();
-             PrintWriter writer = new PrintWriter(Channels.newWriter(socketChannel, StandardCharsets.UTF_8), true);
-             SourceDataLine dataLine = (SourceDataLine) AudioSystem.getLine(info);
-             AudioInputStream audioInputStream = new AudioInputStream(
-                 Channels.newInputStream(socketChannel), audioFormat, AudioSystem.NOT_SPECIFIED
-             )
-        ) {
-            socketChannel.connect(new InetSocketAddress(HOSTNAME, STREAMING_SERVER_PORT));
-            streamingConnection = UUID.randomUUID().toString();
-
-            sendInitialInfo(songId, writer);
-
-            dataLine.open();
-            dataLine.start();
-
-            byte[] bufferBytes = new byte[STREAMING_BUFFER_SIZE];
-            int readBytes;
-            while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
-                if (streamingConnection == null) break;
-                dataLine.write(bufferBytes, 0, readBytes);
-            }
-
-            dataLine.drain();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if ("disconnect".equals(message)) {
+            playSongService.stopStreaming();
+            isRunning = false;
+            return;
         }
+
+        if (message.equals("stop")) {
+            Optional<String> streamingConnectionId = playSongService.getStreamingConnectionId();
+            if (streamingConnectionId.isEmpty()) {
+                System.out.println("No song");
+                return;
+            }
+            message += " " + streamingConnectionId.get();
+            playSongService.stopStreaming();
+
+        }
+
+        writer.println(message);
+        String reply = reader.readLine();
+
+        if (message.startsWith("play")) {
+            handlePlayMusicResponse(reply);
+        }
+
+        System.out.println("The server replied <" + reply + ">");
     }
 
-    private void sendInitialInfo(String songId, PrintWriter writer) {
-        writer.write(streamingConnection);
-        writer.flush();
+    void handlePlayMusicResponse(String reply) {
+        Gson gson = new Gson();
+        StreamingInfoServerResponse response = gson.fromJson(reply, StreamingInfoServerResponse.class);
 
-        writer.write(songId);
-        writer.flush();
+        AudioFormatSerializable formatSerializable = response.result();
+        AudioFormat format = formatSerializable.toAudioFormat();
+
+        new Thread(() ->
+            playSongService.startStreaming(format, formatSerializable.songId()), "Streaming"
+        ).start();
     }
 }
