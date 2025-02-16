@@ -50,6 +50,7 @@ public class Client {
 
                 if (message.startsWith("stop")) {
                     message += " " + streamingConnection;
+                    streamingConnection = null;
                 }
 
                 System.out.println("Sending message <" + message + "> to the server...");
@@ -86,25 +87,18 @@ public class Client {
 
     private void startStreaming(AudioFormat audioFormat, String songId) {
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat);
-        System.out.println("Try to create connection");
 
         try (SocketChannel socketChannel = SocketChannel.open();
              PrintWriter writer = new PrintWriter(Channels.newWriter(socketChannel, StandardCharsets.UTF_8), true);
              SourceDataLine dataLine = (SourceDataLine) AudioSystem.getLine(info);
              AudioInputStream audioInputStream = new AudioInputStream(
-                 Channels.newInputStream(socketChannel),
-                 audioFormat,
-                 AudioSystem.NOT_SPECIFIED
+                 Channels.newInputStream(socketChannel), audioFormat, AudioSystem.NOT_SPECIFIED
              )
         ) {
             socketChannel.connect(new InetSocketAddress(HOSTNAME, STREAMING_SERVER_PORT));
             streamingConnection = UUID.randomUUID().toString();
 
-            writer.write(streamingConnection);
-            writer.flush();
-
-            writer.write(songId);
-            writer.flush();
+            sendInitialInfo(songId, writer);
 
             dataLine.open();
             dataLine.start();
@@ -112,13 +106,21 @@ public class Client {
             byte[] bufferBytes = new byte[STREAMING_BUFFER_SIZE];
             int readBytes;
             while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
+                if (streamingConnection == null) break;
                 dataLine.write(bufferBytes, 0, readBytes);
             }
 
             dataLine.drain();
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void sendInitialInfo(String songId, PrintWriter writer) {
+        writer.write(streamingConnection);
+        writer.flush();
+
+        writer.write(songId);
+        writer.flush();
     }
 }
