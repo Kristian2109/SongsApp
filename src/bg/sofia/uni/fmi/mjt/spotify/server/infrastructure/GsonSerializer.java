@@ -10,7 +10,7 @@ public class GsonSerializer implements Serializer {
     }
 
     @Override
-    public String toJson(Object o) {
+    public String serialize(Object o) {
         return serializer.toJson(o);
     }
 }

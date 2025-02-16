@@ -38,7 +38,7 @@ public class LocalLogger implements Logger {
     @Override
     public void logInfoPairs(Map<String, Object> pairs) {
         try {
-            String log = serializer.toJson(pairs);
+            String log = serializer.serialize(pairs);
             fileWriter.append(log);
             fileWriter.flush();
         } catch (IOException e) {

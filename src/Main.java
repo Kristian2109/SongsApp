@@ -35,8 +35,7 @@ public class Main {
         LocalFileSystemSongsRepository songsRepository = new LocalFileSystemSongsRepository(
             Path.of(DATA_DIRECTORY, SONGS_FILE));
         LocalFileSystemPlaylistRepository playlistRepository = new LocalFileSystemPlaylistRepository(
-            Path.of(DATA_DIRECTORY, PLAYLISTS_FILE)
-        );
+            Path.of(DATA_DIRECTORY, PLAYLISTS_FILE));
 
         Serializer serializer = new GsonSerializer(new Gson());
         Logger logger = new LocalLogger(serializer, new FileWriter(new File(DATA_DIRECTORY, LOGS_FILE)));
