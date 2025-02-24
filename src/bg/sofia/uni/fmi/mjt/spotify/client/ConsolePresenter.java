@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class ConsolePresenter implements Presenter {
     private final Scanner scanner;
     private final PrintStream output;
-    private final String CLEAR_CONSOLE_COMMAND = "\033[H\033[2J";
 
     public ConsolePresenter(Scanner scanner, PrintStream output) {
         this.scanner = scanner;

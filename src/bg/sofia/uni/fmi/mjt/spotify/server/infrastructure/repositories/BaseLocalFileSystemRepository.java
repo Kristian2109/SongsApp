@@ -20,8 +20,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BaseLocalFileSystemRepository<T extends Identifiable> implements BaseRepository<T> {
     protected final Class<T> tClass;
     protected final AtomicInteger lastId = new AtomicInteger();
-    protected final Map<String, T> entities = new ConcurrentHashMap<>();
-    protected final Path sourceFile;
+    protected Map<String, T> entities = new ConcurrentHashMap<>();
+    protected Path sourceFile;
     public BaseLocalFileSystemRepository(Class<T> tClass, Path sourceFile) {
         this.tClass = tClass;
         this.sourceFile = sourceFile;
@@ -29,6 +29,13 @@ public class BaseLocalFileSystemRepository<T extends Identifiable> implements Ba
         int highestId = entitiesList.stream().mapToInt(e -> Integer.parseInt(e.getId())).max().orElse(0);
         lastId.set(highestId + 1);
         entitiesList.forEach(e -> entities.put(e.getId(), e));
+    }
+
+    public BaseLocalFileSystemRepository(Class<T> tClass, List<T> entities) {
+        this.tClass = tClass;
+        int highestId = entities.stream().mapToInt(e -> Integer.parseInt(e.getId())).max().orElse(0);
+        lastId.set(highestId + 1);
+        entities.forEach(e -> this.entities.put(e.getId(), e));
     }
 
     public T getOrThrow(String id) {

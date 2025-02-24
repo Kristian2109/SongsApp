@@ -18,24 +18,12 @@ public class Song extends Identifiable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSource() {
         return source;
     }
 
-    public void setSource(String source) {
-        this.source = source;
-    }
-
     public String getSingerName() {
         return singerName;
-    }
-
-    public void setSingerName(String singerName) {
-        this.singerName = singerName;
     }
 
     public int getListeningsCount() {

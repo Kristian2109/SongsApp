@@ -17,10 +17,6 @@ public class User extends Identifiable {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public boolean comparePassword(String hashedPassword) {
         return passwordHash.equals(hashedPassword);
     }

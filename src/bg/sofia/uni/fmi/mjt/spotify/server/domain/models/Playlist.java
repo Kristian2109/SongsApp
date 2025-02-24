@@ -16,15 +16,7 @@ public class Playlist extends Identifiable {
         return songs;
     }
 
-    public void setSongs(Set<Song> songs) {
-        this.songs = songs;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

@@ -51,7 +51,7 @@ public class Main {
         );
 
         SpotifyServer spotifyServer = new SpotifyServer(SPOTIFY_SERVER_PORT,
-            new SimpleClientInputHandler(commandParser, logger),
+            new SimpleClientInputHandler(commandParser, logger, serializer),
             logger);
 
         StreamingServer streamingServer = new StreamingServer(streamingService, STREAMING_SERVER_PORT, logger,
