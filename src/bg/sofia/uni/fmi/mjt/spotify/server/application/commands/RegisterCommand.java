@@ -21,7 +21,7 @@ public class RegisterCommand implements Command {
     }
 
     @Override
-    public Object execute() {
+    public User execute() {
         Optional<User> existingUser = userRepository.getByEmail(emailAddress);
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("User with email" + emailAddress + " already present");
@@ -30,6 +30,6 @@ public class RegisterCommand implements Command {
         String passwordHash = hashingService.strongHash(password);
         User user = new User(null, emailAddress, passwordHash);
 
-        return  userRepository.create(user);
+        return userRepository.create(user);
     }
 }

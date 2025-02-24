@@ -4,6 +4,7 @@ import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Song;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SearchSongsCommand implements Command {
     private final SongsRepository songsRepository;
@@ -15,9 +16,9 @@ public class SearchSongsCommand implements Command {
     }
 
     @Override
-    public Object execute() {
+    public Set<Song> execute() {
         Set<Song> allSongs = songsRepository.getAll();
-        return allSongs.stream().filter(this::containsKeyword).toList();
+        return allSongs.stream().filter(this::containsKeyword).collect(Collectors.toSet());
     }
 
     private boolean containsKeyword(Song song) {

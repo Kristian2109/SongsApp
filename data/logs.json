@@ -1,0 +1,18 @@
+{"time":"2025-02-24T21:12:31.015126200","message":"Request Start"}
+{"time":"2025-02-24T21:12:31.029295400","message":"Error"}
+{"time":"2025-02-24T21:12:31.031312400","message":"Request End"}
+{"time":"2025-02-24T21:12:38.086130900","message":"Request Start"}
+{"time":"2025-02-24T21:12:38.088132100","message":"Success"}
+{"time":"2025-02-24T21:12:38.090128100","message":"Request End"}
+{"time":"2025-02-24T21:12:43.540059","message":"Request Start"}
+{"time":"2025-02-24T21:12:43.540059","message":"Success"}
+{"time":"2025-02-24T21:12:43.541555300","message":"Request End"}
+{"time":"2025-02-24T21:12:49.456806","message":"Request Start"}
+{"time":"2025-02-24T21:12:49.462245800","message":"Success"}
+{"time":"2025-02-24T21:12:49.465668600","message":"Request End"}
+{"time":"2025-02-24T21:20:23.240063800","message":"Streaming Began"}
+{"stack":"[java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:55), java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:52), java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:213), java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:210), java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:98), java.base/jdk.internal.util.Preconditions.outOfBoundsCheckFromIndexSize(Preconditions.java:118), java.base/jdk.internal.util.Preconditions.checkFromIndexSize(Preconditions.java:397), java.base/java.lang.String.checkBoundsOffCount(String.java:4951), java.base/java.lang.String.\u003cinit\u003e(String.java:543), bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingServiceImpl.beginStreaming(StreamingServiceImpl.java:39), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.handleConnection(StreamingServer.java:44), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.lambda$start$0(StreamingServer.java:32), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1575)]","message":"Range [0, 0 + -1) out of bounds for length 4096"}
+{"time":"2025-02-24T21:20:28.249537600","message":"Streaming ended"}
+{"time":"2025-02-24T21:20:28.268648700","message":"Streaming Began"}
+{"stack":"[java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:55), java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:52), java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:213), java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:210), java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:98), java.base/jdk.internal.util.Preconditions.outOfBoundsCheckFromIndexSize(Preconditions.java:118), java.base/jdk.internal.util.Preconditions.checkFromIndexSize(Preconditions.java:397), java.base/java.lang.String.checkBoundsOffCount(String.java:4951), java.base/java.lang.String.\u003cinit\u003e(String.java:543), bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingServiceImpl.beginStreaming(StreamingServiceImpl.java:39), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.handleConnection(StreamingServer.java:44), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.lambda$start$0(StreamingServer.java:32), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1575)]","message":"Range [0, 0 + -1) out of bounds for length 4096"}
+{"time":"2025-02-24T21:20:33.272151800","message":"Streaming ended"}

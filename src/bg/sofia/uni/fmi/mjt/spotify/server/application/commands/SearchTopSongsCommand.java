@@ -1,7 +1,10 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.application.commands;
 
 import bg.sofia.uni.fmi.mjt.spotify.server.application.ByListeningDescendingComparator;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Song;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
+
+import java.util.List;
 
 public class SearchTopSongsCommand implements Command {
     private final SongsRepository songsRepository;
@@ -13,7 +16,7 @@ public class SearchTopSongsCommand implements Command {
     }
 
     @Override
-    public Object execute() {
+    public List<Song> execute() {
         return songsRepository.getAll().stream()
             .sorted(new ByListeningDescendingComparator())
             .limit(songsCount)

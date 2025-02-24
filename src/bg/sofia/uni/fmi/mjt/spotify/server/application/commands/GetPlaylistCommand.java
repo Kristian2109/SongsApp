@@ -13,6 +13,7 @@ public class GetPlaylistCommand implements Command {
 
     @Override
     public Object execute() {
-        return playlistRepository.getByName(playlistName).orElseThrow();
+        return playlistRepository.getByName(playlistName)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid song name"));
     }
 }

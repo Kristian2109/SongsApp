@@ -1,5 +1,7 @@
 package bg.sofia.uni.fmi.mjt.spotify.common;
 
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Song;
+
 import javax.sound.sampled.AudioFormat;
 
 public record AudioFormatSerializable(
@@ -21,6 +23,19 @@ public record AudioFormatSerializable(
             frameSize(),
             frameRate(),
             bigEndian()
+        );
+    }
+
+    public static AudioFormatSerializable from(AudioFormat audioFormat, Song song) {
+        return new AudioFormatSerializable(
+            audioFormat.getEncoding().toString(),
+            audioFormat.getSampleRate(),
+            audioFormat.getSampleSizeInBits(),
+            audioFormat.getChannels(),
+            audioFormat.getFrameSize(),
+            audioFormat.getFrameRate(),
+            audioFormat.isBigEndian(),
+            song.getId()
         );
     }
 }

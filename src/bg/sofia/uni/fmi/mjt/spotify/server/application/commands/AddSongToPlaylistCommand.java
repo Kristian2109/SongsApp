@@ -23,8 +23,12 @@ public class AddSongToPlaylistCommand implements Command {
     }
 
     public Map<String, Object> execute() {
-        Song foundSong = this.songsRepository.getByName(songName).orElseThrow();
-        Playlist playlist = this.playlistRepository.getByName(playlistName).orElseThrow();
+        Song foundSong = this.songsRepository.getByName(songName)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid song name"));
+
+        Playlist playlist = this.playlistRepository.getByName(playlistName)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid playlist name"));
+
         playlist.getSongs().add(foundSong);
         playlistRepository.updateOrThrow(playlist);
         return new HashMap<>();

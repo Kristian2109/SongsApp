@@ -31,22 +31,9 @@ public class PlaySongCommand implements Command {
             AudioFormat audioFormat = AudioSystem.getAudioInputStream(songPath).getFormat();
             song.incrementListings();
             songsRepository.updateOrThrow(song);
-            return mapAudioToSerializable(audioFormat, song);
+            return AudioFormatSerializable.from(audioFormat, song);
         } catch (UnsupportedAudioFileException | IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private AudioFormatSerializable mapAudioToSerializable(AudioFormat audioFormat, Song song) {
-        return new AudioFormatSerializable(
-            audioFormat.getEncoding().toString(),
-            audioFormat.getSampleRate(),
-            audioFormat.getSampleSizeInBits(),
-            audioFormat.getChannels(),
-            audioFormat.getFrameSize(),
-            audioFormat.getFrameRate(),
-            audioFormat.isBigEndian(),
-            song.getId()
-        );
     }
 }
