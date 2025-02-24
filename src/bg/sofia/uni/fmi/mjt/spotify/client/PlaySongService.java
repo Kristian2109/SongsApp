@@ -46,12 +46,15 @@ public class PlaySongService {
             int readBytes;
             while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
                 if (streamingConnectionId.isEmpty()) {
+                    socketChannel.close();
                     dataLine.stop();
+                    dataLine.close();
                     break;
                 }
                 dataLine.write(bufferBytes, 0, readBytes);
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }

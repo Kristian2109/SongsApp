@@ -6,6 +6,7 @@ import bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingService;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
@@ -42,7 +43,7 @@ public class StreamingServer {
         try {
             streamingService.beginStreaming(socket);
         } catch (Exception e) {
-            logger.logInfoPairs(Map.of("message", e.getMessage(), "stack", e.getStackTrace().toString()));
+            logger.logInfoPairs(Map.of("message", e.getMessage(), "stack", Arrays.toString(e.getStackTrace())));
         }
 
         logger.logInfo("Streaming ended");

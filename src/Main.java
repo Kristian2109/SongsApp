@@ -55,7 +55,7 @@ public class Main {
             logger);
 
         StreamingServer streamingServer = new StreamingServer(streamingService, STREAMING_SERVER_PORT, logger,
-            Executors.newCachedThreadPool());
+            Executors.newFixedThreadPool(30));
 
         new Thread(() -> runAdminConsole(spotifyServer, streamingServer)).start();
         new Thread(streamingServer::start).start();

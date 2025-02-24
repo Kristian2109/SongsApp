@@ -49,6 +49,7 @@ public class StreamingServiceImpl implements StreamingService {
             }
             socket.close();
         } catch (IOException e) {
+            logger.logWarning(e.getMessage());
             throw new RuntimeException(e);
         }
     }
