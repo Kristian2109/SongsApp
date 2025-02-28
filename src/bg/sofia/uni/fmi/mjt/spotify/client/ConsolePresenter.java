@@ -18,9 +18,6 @@ public class ConsolePresenter implements Presenter {
 
     @Override
     public void writeMessage(String message) {
-        if (message == null || message.isEmpty()) {
-            throw new IllegalArgumentException("Message cannot be null or empty");
-        }
         output.println(message);
     }
 

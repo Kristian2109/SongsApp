@@ -34,18 +34,6 @@ class ConsolePresenterTest {
     }
 
     @Test
-    void testWriteMessageThrowsIllegalArgumentExceptionForNullMessage() {
-        assertThrows(IllegalArgumentException.class, () -> consolePresenter.writeMessage(null),
-            "Expected IllegalArgumentException for null message.");
-    }
-
-    @Test
-    void testWriteMessageThrowsIllegalArgumentExceptionForEmptyMessage() {
-        assertThrows(IllegalArgumentException.class, () -> consolePresenter.writeMessage(""),
-            "Expected IllegalArgumentException for empty message.");
-    }
-
-    @Test
     void testGetInputPromptsUserAndReturnsInput() {
         String userInput = "user input";
         when(scanner.nextLine()).thenReturn(userInput);
