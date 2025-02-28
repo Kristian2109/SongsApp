@@ -21,10 +21,6 @@ public class CommandHandler {
         isLoggedIn = loggedIn;
     }
 
-    public void setRunning(boolean running) {
-        isRunning = running;
-    }
-
     private boolean isLoggedIn = false;
 
     private boolean isRunning = true;

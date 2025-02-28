@@ -46,7 +46,6 @@ public class PlaySongService {
             int readBytes;
             while ((readBytes = audioInputStream.read(bufferBytes)) != -1) {
                 if (streamingConnectionId.isEmpty()) {
-                    socketChannel.close();
                     dataLine.stop();
                     dataLine.close();
                     break;

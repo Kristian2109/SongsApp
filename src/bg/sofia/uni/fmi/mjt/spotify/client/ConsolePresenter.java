@@ -12,10 +12,6 @@ public class ConsolePresenter implements Presenter {
         this.output = output;
     }
 
-    public ConsolePresenter() {
-        this(new Scanner(System.in), System.out);
-    }
-
     @Override
     public void writeMessage(String message) {
         output.println(message);

@@ -9,14 +9,12 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 
 public class SocketHandler {
-    private final Presenter presenter;
     private static final String HOSTNAME = "localhost";
     private static final int SPOTIFY_SERVER_PORT = 3000;
 
     private final CommandHandler commandHandler;
 
-    public SocketHandler(Presenter presenter, CommandHandler commandHandler) {
-        this.presenter = presenter;
+    public SocketHandler(CommandHandler commandHandler) {
         this.commandHandler = commandHandler;
     }
 
@@ -25,15 +23,12 @@ public class SocketHandler {
              BufferedReader reader = new BufferedReader(Channels.newReader(socketChannel, StandardCharsets.UTF_8));
              PrintWriter writer = new PrintWriter(Channels.newWriter(socketChannel, StandardCharsets.UTF_8), true)
         ) {
-
             socketChannel.connect(new InetSocketAddress(HOSTNAME, SPOTIFY_SERVER_PORT));
-            presenter.writeMessage("Client Started");
 
             while (commandHandler.isRunning()) {
                 commandHandler.handle(reader, writer);
             }
         } catch (IOException e) {
-            presenter.writeMessage("Error: " + e.getMessage());
             throw new RuntimeException("There is a problem with the network communication", e);
         }
     }

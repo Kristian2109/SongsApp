@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -72,5 +74,22 @@ class CommandHandlerTest {
         when(reader.readLine()).thenReturn("{\"success\":true}");
         commandHandler.handle(reader, writer);
         assertTrue(commandHandler.isLoggedIn());
+    }
+
+    @Test
+    void testPlayMusic() throws IOException {
+        when(presenter.getInput()).thenReturn("play edno");
+        when(reader.readLine()).thenReturn("{\"result\":{\"encoding\":\"PCM_SIGNED\",\"sampleRate\":48000.0,\"sampleSizeInBits\":16,\"channels\":2,\"frameSize\":4,\"frameRate\":48000.0,\"bigEndian\":false,\"songId\":\"2\"},\"success\":true}");
+        commandHandler.handle(reader, writer);
+        verify(playSongService).startStreaming(any(), any());
+    }
+
+    @Test
+    void testStopPlayMusic() throws IOException {
+        when(presenter.getInput()).thenReturn("stop");
+        when(playSongService.getStreamingConnectionId()).thenReturn(Optional.of("connection-id"));
+        commandHandler.handle(reader, writer);
+        verify(playSongService).stopStreaming();
+        verify(writer).println("stop connection-id");
     }
 }
