@@ -1,25 +1,10 @@
-{"message":"Request Start","time":"2025-02-28T22:35:01.765560"}
-{"message":"Success","time":"2025-02-28T22:35:01.786024100"}
-{"message":"Request End","time":"2025-02-28T22:35:01.801875200"}
-{"message":"Streaming Began","time":"2025-02-28T22:35:02.004212800"}
-{"message":"Streaming running","time":"2025-02-28T22:35:02.054912100"}
-{"message":"Request Start","time":"2025-02-28T22:35:05.244869"}
-{"message":"Success","time":"2025-02-28T22:35:05.245883400"}
-{"message":"Request End","time":"2025-02-28T22:35:05.245883400"}
-{"message":"Connection reset by peer","time":"2025-02-28T22:35:05.336220500"}
-{"message":"java.net.SocketException: Connection reset by peer","stack":"[bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingServiceImpl.beginStreaming(StreamingServiceImpl.java:53), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.handleConnection(StreamingServer.java:44), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.lambda$start$0(StreamingServer.java:32), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1575)]"}
-{"message":"Streaming ended","time":"2025-02-28T22:35:05.337206700"}
-{"message":"Request Start","time":"2025-02-28T22:35:11.175990900"}
-{"message":"Error","time":"2025-02-28T22:35:11.175990900"}
-{"message":"Request End","time":"2025-02-28T22:35:11.177030400"}
-{"message":"Request Start","time":"2025-02-28T22:35:15.598075700"}
-{"message":"Success","time":"2025-02-28T22:35:15.599239100"}
-{"message":"Request End","time":"2025-02-28T22:35:15.600258900"}
-{"message":"Streaming Began","time":"2025-02-28T22:35:15.604815500"}
-{"message":"Request Start","time":"2025-02-28T22:35:19.808629800"}
-{"message":"Success","time":"2025-02-28T22:35:19.809747400"}
-{"message":"Request End","time":"2025-02-28T22:35:19.809747400"}
-{"message":"Request Start","time":"2025-02-28T22:35:26.258576900"}
-{"message":"Connection reset","time":"2025-02-28T22:35:29.455965900"}
-{"message":"java.net.SocketException: Connection reset","stack":"[bg.sofia.uni.fmi.mjt.spotify.server.application.StreamingServiceImpl.beginStreaming(StreamingServiceImpl.java:53), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.handleConnection(StreamingServer.java:44), bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer.lambda$start$0(StreamingServer.java:32), java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144), java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642), java.base/java.lang.Thread.run(Thread.java:1575)]"}
-{"message":"Streaming ended","time":"2025-02-28T22:35:29.456971300"}
+{"message":"Request Start","time":"2025-03-23T17:06:18.760817800"}
+{"message":"Success","time":"2025-03-23T17:06:18.770828600"}
+{"message":"Request End","time":"2025-03-23T17:06:18.773842300"}
+{"message":"Request Start","time":"2025-03-23T17:06:25.494934200"}
+{"message":"Success","time":"2025-03-23T17:06:25.499068"}
+{"message":"Request End","time":"2025-03-23T17:06:25.502066400"}
+{"message":"Request Start","time":"2025-03-23T17:06:48.236404700"}
+{"message":"Success","time":"2025-03-23T17:06:48.238404600"}
+{"message":"Request End","time":"2025-03-23T17:06:48.239382600"}
+{"message":"Request Start","time":"2025-03-23T17:06:57.189755300"}

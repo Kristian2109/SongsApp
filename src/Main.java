@@ -8,11 +8,13 @@ import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.logging.LocalLogger;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.playlist.LocalFileSystemPlaylistRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.songs.LocalFileSystemSongsRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.infrastructure.repositories.user.LocalFileSystemUserRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.presentation.ExcludeSerializeFalseStrategy;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SimpleClientInputHandler;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SingleLineStringCommandParser;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.SpotifyServer;
 import bg.sofia.uni.fmi.mjt.spotify.server.presentation.StreamingServer;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +42,11 @@ public class Main {
         LocalFileSystemPlaylistRepository playlistRepository = new LocalFileSystemPlaylistRepository(
             Path.of(DATA_DIRECTORY, PLAYLISTS_FILE));
 
-        Serializer serializer = new GsonSerializer(new Gson());
+        Gson gson = new GsonBuilder()
+            .addSerializationExclusionStrategy(new ExcludeSerializeFalseStrategy())
+            .create();
+
+        Serializer serializer = new GsonSerializer(gson);
         Logger logger = new LocalLogger(serializer, new FileWriter(new File(DATA_DIRECTORY, LOGS_FILE)));
         SimpleHashingService hashingService = new SimpleHashingService();
 

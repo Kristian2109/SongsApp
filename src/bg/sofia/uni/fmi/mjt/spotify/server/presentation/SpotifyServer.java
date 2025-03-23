@@ -80,14 +80,14 @@ public class SpotifyServer {
     }
 
     private void handleChannel(SelectionKey key) throws IOException {
-        this.logger.logInfo("Request Start");
+        logger.logInfo("Request Start");
         SocketChannel clientChannel = (SocketChannel) key.channel();
         String clientInput = getClientInput(clientChannel);
         if (clientInput == null) {
             clientChannel.close();
             return;
         }
-        String result = this.commandHandler.handle(clientInput);
+        String result = commandHandler.handle(clientInput);
 
         writeClientOutput(clientChannel, result + '\n');
         logger.logInfo("Request End");
@@ -119,10 +119,10 @@ public class SpotifyServer {
     }
 
     private void accept(Selector selector, SelectionKey key) throws IOException {
-        ServerSocketChannel sockChannel = (ServerSocketChannel) key.channel();
-        SocketChannel accept = sockChannel.accept();
+        ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
+        SocketChannel socketChannel = serverSocketChannel.accept();
 
-        accept.configureBlocking(false);
-        accept.register(selector, SelectionKey.OP_READ);
+        socketChannel.configureBlocking(false);
+        socketChannel.register(selector, SelectionKey.OP_READ);
     }
 }
