@@ -1,12 +1,13 @@
 package bg.sofia.uni.fmi.mjt.spotify.server.application.commands;
 
-import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
-import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Playlist;
 import bg.sofia.uni.fmi.mjt.spotify.server.domain.models.Song;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.PlaylistRepository;
+import bg.sofia.uni.fmi.mjt.spotify.server.domain.repositories.SongsRepository;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AddSongToPlaylistCommand implements Command {
     private final String songName;
@@ -29,7 +30,13 @@ public class AddSongToPlaylistCommand implements Command {
         Playlist playlist = this.playlistRepository.getByName(playlistName)
             .orElseThrow(() -> new IllegalArgumentException("Invalid playlist name"));
 
-        playlist.getSongs().add(foundSong);
+        Set<Song> playlistSongs = playlist.getSongs();
+
+        if (playlistSongs.contains(foundSong)) {
+            throw new IllegalArgumentException("Songs is already part of this playlist");
+        }
+
+        playlistSongs.add(foundSong);
         playlistRepository.updateOrThrow(playlist);
         return new HashMap<>();
     }
